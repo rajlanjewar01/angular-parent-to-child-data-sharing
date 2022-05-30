@@ -1,0 +1,65 @@
+* Style binding:
+
+(app.component.html)
+<h1  [style.color]="'red'">Heading 1</h1>
+
+
+--dynamic style binding--:
+(app.component.ts)
+
+export class AppComponent {
+	color: "pink";
+	
+	changeColor(){
+		this.color = "orange";
+	}
+}
+
+
+
+
+<h1  [style.color]="color">Heading 2</h1>
+
+<button type="button" (click)="changeColor()">click me</button>
+
+
+*Material UI*
+ng add @angular/material
+
+
+
+*Pass data to child component*
+1) User & App component:
+-generate user component
+ng generate component User
+-- parent component-
+(app.component.ts) - parent component
+
+export class AppComponent{
+	data = "test data string";
+	
+	superHero{
+				name: 'Batman',
+				power: 'Gadget',
+				city: 'Gotham'
+			}
+}
+
+(app.component.html) 
+<app-user [sendData]="data"  [batman]="superHero"></app-user>
+
+-- child component --
+(users.component.ts)
+import { Component, OnInit, Input } from '@angular/core';
+export class UsersComponent implements OnInit { 
+
+	@Input() sendData;
+	
+	@Input() batman;
+} 
+
+
+(users.component.html)
+<p>{{ sendData }}</p>
+<p>{{ batman.name }}  {{ batman.power }}  {{ batman.city }}</p>
+
